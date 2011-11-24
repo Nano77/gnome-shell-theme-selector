@@ -4,7 +4,6 @@
 import os
 import gettext
 import dbus
-import gettext
 
 from gi.repository import Gtk
 from gi.repository import Gio
@@ -108,8 +107,8 @@ SETUP = Gio.file_new_for_path('/usr/bin/gdm3setup.py').query_exists(None)
 if SETUP :
 	bus = dbus.SystemBus()
 	gdm3setup = bus.get_object('apps.nano77.gdm3setup','/apps/nano77/gdm3setup')
-	SetUI = gdm3setup.get_dbus_method('SetUI','apps.nano77.gdm3setup.set')
-	StopDaemon = gdm3setup.get_dbus_method('stop', 'apps.nano77.gdm3setup')
+	SetUI = gdm3setup.get_dbus_method('SetUI','apps.nano77.gdm3setup')
+	StopDaemon = gdm3setup.get_dbus_method('StopDaemon', 'apps.nano77.gdm3setup')
 	Button_GDM.show()
 else :
 	Button_GDM.hide()
