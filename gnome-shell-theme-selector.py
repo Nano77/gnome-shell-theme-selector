@@ -19,7 +19,11 @@ Settings =  Gio.Settings.new(THEME_SETTINGS_SCHEMA)
 def mainwin_close(event):
 	Gtk.main_quit()
 	if SETUP :
-		StopDaemon()
+		try :
+			StopDaemon()
+		except dbus.exceptions.DBusException :
+			print ""
+
 
 def load_theme_list():
 
@@ -103,7 +107,8 @@ load_theme_list()
 get_theme()
 CheckGdmCompatibility()
 
-SETUP = Gio.file_new_for_path('/usr/bin/gdm3setup.py').query_exists(None)
+SETUP = Gio.file_new_for_path('/usr/bin/gdm3setup-daemon.py').query_exists(None) or \
+Gio.file_new_for_path('/usr/bin/gdm3setup-daemon').query_exists(None)
 if SETUP :
 	bus = dbus.SystemBus()
 	gdm3setup = bus.get_object('apps.nano77.gdm3setup','/apps/nano77/gdm3setup')
